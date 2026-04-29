@@ -1,0 +1,57 @@
+[
+  {
+    "clientId": "nova-notes-web",
+    "clientName": "Nova Notes",
+    "description": "A public SPA client using Authorization Code + PKCE.",
+    "clientType": "public",
+    "redirectUris": [
+      "http://localhost:4174/auth/callback"
+    ],
+    "allowedOrigins": [
+      "http://localhost:4174"
+    ],
+    "applicationUrl": "http://localhost:4174",
+    "defaultScopes": [
+      "openid",
+      "profile",
+      "email",
+      "notifications:read"
+    ],
+    "allowedScopes": [
+      "openid",
+      "profile",
+      "email",
+      "notifications:read"
+    ],
+    "logoText": "NN"
+  },
+  {
+    "clientId": "nova-admin-api",
+    "clientName": "Nova Admin",
+    "description": "A confidential backend-enabled app that can introspect and refresh securely.",
+    "clientType": "confidential",
+    "clientSecret": "replace-this-secret-before-production",
+    "redirectUris": [
+      "http://localhost:3001/auth/callback"
+    ],
+    "allowedOrigins": [
+      "http://localhost:3001"
+    ],
+    "applicationUrl": "http://localhost:3001",
+    "defaultScopes": [
+      "openid",
+      "profile",
+      "email",
+      "apps:read",
+      "notifications:read"
+    ],
+    "allowedScopes": [
+      "openid",
+      "profile",
+      "email",
+      "apps:read",
+      "notifications:read"
+    ],
+    "logoText": "NA"
+  }
+]

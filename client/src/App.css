@@ -1,0 +1,405 @@
+.shell {
+  width: 100%;
+  min-height: 100vh;
+  display: grid;
+  gap: 0;
+}
+
+.hero-band,
+.flow-band,
+.workspace-band,
+.apps-band {
+  width: 100%;
+  padding: 3.5rem 3rem;
+}
+
+.hero-band {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 2rem;
+  align-items: end;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hero-copy h1,
+.flow-column h2,
+.workspace-side h2,
+.apps-header h2,
+.identity-banner h2 {
+  margin: 0;
+  line-height: 0.92;
+}
+
+.hero-copy h1 {
+  font-size: clamp(3.2rem, 9vw, 7rem);
+  letter-spacing: -0.08em;
+}
+
+.eyebrow {
+  margin: 0 0 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.78rem;
+  color: #f3b36e;
+}
+
+.lead,
+.body-copy,
+.session-meta,
+.app-card p,
+.strip-card p,
+.inbox-item p,
+.scope-item p {
+  margin: 0;
+  color: rgba(246, 239, 227, 0.78);
+}
+
+.lead {
+  font-size: 1.08rem;
+}
+
+.lead.compact {
+  width: 100%;
+}
+
+.hero-rail,
+.apps-grid,
+.protocol-strip,
+.strip-grid,
+.wide-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.hero-rail {
+  align-self: stretch;
+}
+
+.float-card,
+.strip-card,
+.wide-card,
+.scope-item,
+.inbox-item,
+.app-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 26px;
+  padding: 1.1rem 1.2rem;
+  backdrop-filter: blur(14px);
+}
+
+.accent-card {
+  background: linear-gradient(135deg, rgba(240, 179, 111, 0.18), rgba(255, 140, 105, 0.12));
+}
+
+.card-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  font-size: 0.76rem;
+  color: rgba(246, 239, 227, 0.58);
+}
+
+.float-card strong,
+.strip-card strong,
+.wide-card strong,
+.app-card strong,
+.identity-meta strong,
+.identity-banner strong {
+  font-size: 1.08rem;
+}
+
+.flow-band {
+  display: grid;
+}
+
+.flow-column {
+  display: grid;
+  gap: 1.4rem;
+}
+
+.app-row,
+.identity-banner,
+.inbox-top,
+.app-card-top {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app-row {
+  justify-content: flex-start;
+}
+
+.app-badge,
+.mini-badge {
+  display: grid;
+  place-items: center;
+  color: #101010;
+  background: linear-gradient(135deg, #f3b36e, #90cbff);
+  font-weight: 700;
+}
+
+.app-badge {
+  width: 72px;
+  height: 72px;
+  border-radius: 22px;
+}
+
+.mini-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  flex: 0 0 auto;
+}
+
+.workspace-band {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.workspace-main,
+.workspace-side,
+.side-section,
+.auth-stack,
+.flow-column,
+.inbox-list {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.identity-banner {
+  align-items: end;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.identity-meta {
+  display: grid;
+  gap: 0.75rem;
+  text-align: right;
+}
+
+.auth-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.auth-form label {
+  display: grid;
+  gap: 0.45rem;
+  color: rgba(246, 239, 227, 0.84);
+}
+
+.auth-form input {
+  width: 100%;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: #f6efe3;
+  padding: 1rem 1rem;
+  outline: none;
+}
+
+.auth-form input:focus {
+  border-color: rgba(243, 179, 110, 0.95);
+  box-shadow: 0 0 0 4px rgba(243, 179, 110, 0.12);
+}
+
+.mode-switch {
+  display: inline-flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.mode-button,
+.primary-button,
+.ghost-button,
+.text-button {
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+.mode-button,
+.ghost-button {
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(246, 239, 227, 0.78);
+}
+
+.mode-button {
+  padding: 0.8rem 1rem;
+  border-radius: 999px;
+}
+
+.mode-button.active {
+  background: #f3b36e;
+  color: #101010;
+  font-weight: 700;
+}
+
+.primary-button,
+.ghost-button {
+  padding: 0.95rem 1.2rem;
+  border-radius: 16px;
+  font-weight: 700;
+}
+
+.primary-button {
+  background: linear-gradient(135deg, #f3b36e, #ff8a66);
+  color: #111111;
+}
+
+.primary-button:disabled,
+.ghost-button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.text-button {
+  background: transparent;
+  color: #96cbff;
+  padding: 0;
+}
+
+.handle-input {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.handle-input span {
+  color: #f3b36e;
+  font-weight: 700;
+}
+
+.handle-status {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0.9rem 1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.handle-status.available {
+  border: 1px solid rgba(84, 202, 149, 0.35);
+}
+
+.handle-status.unavailable,
+.handle-status.error {
+  border: 1px solid rgba(243, 179, 110, 0.35);
+}
+
+.action-row,
+.status-row,
+.inbox-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.status-row code,
+.app-card code,
+.strip-card code {
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.inbox-item.read {
+  opacity: 0.72;
+}
+
+.inbox-item.empty {
+  border-style: dashed;
+}
+
+.pill {
+  padding: 0.3rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(243, 179, 110, 0.18);
+  color: #f3b36e;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.apps-band {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.apps-grid {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.protocol-strip,
+.strip-grid,
+.wide-grid {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.feedback {
+  margin: 0;
+  padding: 0.95rem 1rem;
+  border-radius: 16px;
+}
+
+.feedback.success {
+  background: rgba(82, 210, 154, 0.12);
+  color: #a3f0c7;
+}
+
+.feedback.error {
+  background: rgba(255, 108, 108, 0.12);
+  color: #ffb9b9;
+}
+
+.muted {
+  color: rgba(246, 239, 227, 0.56);
+  font-weight: 400;
+}
+
+@media (max-width: 920px) {
+  .hero-band,
+  .workspace-band {
+    grid-template-columns: 1fr;
+  }
+
+  .identity-banner,
+  .app-row,
+  .app-card-top {
+    align-items: flex-start;
+  }
+
+  .identity-banner,
+  .identity-meta {
+    text-align: left;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-band,
+  .flow-band,
+  .workspace-band,
+  .apps-band {
+    padding: 2.2rem 1rem;
+  }
+
+  .handle-input {
+    grid-template-columns: 1fr;
+  }
+
+  .mode-button {
+    flex: 1 1 auto;
+  }
+}

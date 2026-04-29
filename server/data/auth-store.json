@@ -1,0 +1,46 @@
+{
+  "users": [
+    {
+      "id": "b082b72aebe3eff2711d80ac",
+      "displayName": "Smoke User",
+      "handle": "smoke4879",
+      "novaAuthId": "smoke4879#NovaAuth",
+      "novaEmail": "smoke4879@novaauth.id",
+      "passwordHash": "fb609deef34375b05bc9ac7890e36cf1279195ab6dd611438f82a1120f5d63e7fce2a4ea9e2d81fafda0fdeacec5da842f9acb0e37c4256d95241987c9b35660",
+      "passwordSalt": "c74ac8c10bcc7a6fa1eec39067f60515",
+      "createdAt": "2026-04-29T04:25:24.782Z"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "68e796f0696eea635041e949",
+      "userId": "b082b72aebe3eff2711d80ac",
+      "tokenHash": "203911377f2a7d2e3a61a1dd710bc7b30ea179d6011ef076177d0d86732b8931",
+      "createdAt": "2026-04-29T04:25:24.783Z",
+      "expiresAt": "2026-04-29T16:25:24.783Z"
+    }
+  ],
+  "refreshTokens": [],
+  "authCodes": [],
+  "grants": [],
+  "notifications": [
+    {
+      "id": "aa1dfcf52a793f0eb1e0",
+      "createdAt": "2026-04-29T04:25:24.782Z",
+      "readAt": null,
+      "userId": "b082b72aebe3eff2711d80ac",
+      "type": "welcome",
+      "title": "Welcome to NovaAuth",
+      "body": "Your identity smoke4879#NovaAuth is now active."
+    },
+    {
+      "id": "f261bbf8ae7d99843abf",
+      "createdAt": "2026-04-29T04:25:24.782Z",
+      "readAt": null,
+      "userId": "b082b72aebe3eff2711d80ac",
+      "type": "mailbox",
+      "title": "Nova mailbox created",
+      "body": "Your built-in NovaAuth address is smoke4879@novaauth.id."
+    }
+  ]
+}
