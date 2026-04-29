@@ -8,7 +8,21 @@
       "novaEmail": "smoke4879@novaauth.id",
       "passwordHash": "fb609deef34375b05bc9ac7890e36cf1279195ab6dd611438f82a1120f5d63e7fce2a4ea9e2d81fafda0fdeacec5da842f9acb0e37c4256d95241987c9b35660",
       "passwordSalt": "c74ac8c10bcc7a6fa1eec39067f60515",
-      "createdAt": "2026-04-29T04:25:24.782Z"
+      "createdAt": "2026-04-29T04:25:24.782Z",
+      "settings": {
+        "themePreference": "system",
+        "compactMode": false,
+        "emailUpdates": true,
+        "securityAlerts": true,
+        "developerDefaultClientType": "public",
+        "developerDefaultScopes": [
+          "openid",
+          "profile",
+          "email"
+        ],
+        "startPage": "dashboard",
+        "profileTagline": ""
+      }
     }
   ],
   "sessions": [

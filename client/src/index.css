@@ -1,18 +1,80 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@500;700&display=swap');
 
 :root {
-  font-family: 'Space Grotesk', sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color: #f4efe5;
+  --font-body: 'Manrope', sans-serif;
+  --font-display: 'Sora', sans-serif;
+  --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+  --bg: #f6f5f1;
+  --surface: rgba(255, 255, 255, 0.74);
+  --field: rgba(255, 255, 255, 0.82);
+  --code-surface: rgba(242, 238, 230, 0.95);
+  --text: #16202a;
+  --muted: #58636f;
+  --border: rgba(22, 32, 42, 0.12);
+  --accent: #cf7c2d;
+  --brand-two: #6abce6;
+  --success: #237a4a;
+  --danger: #bb4b4b;
+  font-family: var(--font-body);
   background:
-    radial-gradient(circle at top left, rgba(237, 145, 65, 0.35), transparent 30%),
-    radial-gradient(circle at bottom right, rgba(84, 164, 255, 0.25), transparent 28%),
-    linear-gradient(135deg, #111111 0%, #1e1622 38%, #0b2231 100%);
+    radial-gradient(circle at top left, rgba(236, 167, 89, 0.2), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(103, 186, 224, 0.18), transparent 25%),
+    linear-gradient(180deg, #f8f6f1 0%, #edf2f4 100%);
+  color: var(--text);
+  line-height: 1.5;
+  font-weight: 500;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0c1116;
+    --surface: rgba(16, 22, 28, 0.82);
+    --field: rgba(255, 255, 255, 0.06);
+    --code-surface: rgba(255, 255, 255, 0.04);
+    --text: #edf4f8;
+    --muted: #a6b4c0;
+    --border: rgba(255, 255, 255, 0.08);
+    --accent: #f0b15a;
+    --brand-two: #7dcbff;
+    --success: #67d19a;
+    --danger: #ff8c8c;
+    background:
+      radial-gradient(circle at top left, rgba(240, 177, 90, 0.16), transparent 28%),
+      radial-gradient(circle at bottom right, rgba(125, 203, 255, 0.16), transparent 25%),
+      linear-gradient(180deg, #0e1318 0%, #101a22 100%);
+  }
+}
+
+:root[data-theme='light'] {
+  --bg: #f6f5f1;
+  --surface: rgba(255, 255, 255, 0.74);
+  --field: rgba(255, 255, 255, 0.82);
+  --code-surface: rgba(242, 238, 230, 0.95);
+  --text: #16202a;
+  --muted: #58636f;
+  --border: rgba(22, 32, 42, 0.12);
+  --accent: #cf7c2d;
+  --brand-two: #6abce6;
+  --success: #237a4a;
+  --danger: #bb4b4b;
+}
+
+:root[data-theme='dark'] {
+  --bg: #0c1116;
+  --surface: rgba(16, 22, 28, 0.82);
+  --field: rgba(255, 255, 255, 0.06);
+  --code-surface: rgba(255, 255, 255, 0.04);
+  --text: #edf4f8;
+  --muted: #a6b4c0;
+  --border: rgba(255, 255, 255, 0.08);
+  --accent: #f0b15a;
+  --brand-two: #7dcbff;
+  --success: #67d19a;
+  --danger: #ff8c8c;
 }
 
 * {
@@ -27,13 +89,12 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background: var(--bg);
 }
 
+a,
 button,
-input {
-  font: inherit;
-}
-
-a {
+input,
+textarea {
   color: inherit;
 }

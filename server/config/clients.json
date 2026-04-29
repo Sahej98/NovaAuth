@@ -4,6 +4,7 @@
     "clientName": "Nova Notes",
     "description": "A public SPA client using Authorization Code + PKCE.",
     "clientType": "public",
+    "clientSecret": "",
     "redirectUris": [
       "http://localhost:4174/auth/callback"
     ],
@@ -23,7 +24,11 @@
       "email",
       "notifications:read"
     ],
-    "logoText": "NN"
+    "logoText": "NN",
+    "status": "active",
+    "ownerUserId": null,
+    "createdAt": "2026-04-29T04:25:24.000Z",
+    "updatedAt": "2026-04-29T04:25:24.000Z"
   },
   {
     "clientId": "nova-admin-api",
@@ -52,6 +57,10 @@
       "apps:read",
       "notifications:read"
     ],
-    "logoText": "NA"
+    "logoText": "NA",
+    "status": "active",
+    "ownerUserId": null,
+    "createdAt": "2026-04-29T04:25:24.000Z",
+    "updatedAt": "2026-04-29T04:25:24.000Z"
   }
 ]

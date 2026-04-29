@@ -26,64 +26,136 @@ const SCOPE_DESCRIPTIONS = {
   'notifications:read': 'Read NovaAuth inbox and system notifications.',
 };
 
+function createClientSecret() {
+  return crypto.randomBytes(24).toString('hex');
+}
+
+function createStarterClients() {
+  return [
+    {
+      clientId: 'nova-notes-web',
+      clientName: 'Nova Notes',
+      description: 'A public SPA client using Authorization Code + PKCE.',
+      clientType: 'public',
+      redirectUris: ['http://localhost:4174/auth/callback'],
+      allowedOrigins: ['http://localhost:4174'],
+      applicationUrl: 'http://localhost:4174',
+      defaultScopes: ['openid', 'profile', 'email', 'notifications:read'],
+      allowedScopes: ['openid', 'profile', 'email', 'notifications:read'],
+      logoText: 'NN',
+      status: 'active',
+      ownerUserId: null,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    },
+    {
+      clientId: 'nova-admin-api',
+      clientName: 'Nova Admin',
+      description: 'A confidential backend-enabled app that can introspect and refresh securely.',
+      clientType: 'confidential',
+      clientSecret: 'replace-this-secret-before-production',
+      redirectUris: ['http://localhost:3001/auth/callback'],
+      allowedOrigins: ['http://localhost:3001'],
+      applicationUrl: 'http://localhost:3001',
+      defaultScopes: ['openid', 'profile', 'email', 'apps:read', 'notifications:read'],
+      allowedScopes: ['openid', 'profile', 'email', 'apps:read', 'notifications:read'],
+      logoText: 'NA',
+      status: 'active',
+      ownerUserId: null,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    },
+  ];
+}
+
+function normalizeClient(client) {
+  const redirectUris = Array.isArray(client.redirectUris)
+    ? [...new Set(client.redirectUris.map((item) => String(item).trim()).filter(Boolean))]
+    : [];
+  const derivedOrigins = redirectUris
+    .map((item) => {
+      try {
+        return new URL(item).origin;
+      } catch (error) {
+        return null;
+      }
+    })
+    .filter(Boolean);
+  const allowedOrigins = Array.isArray(client.allowedOrigins) && client.allowedOrigins.length
+    ? [...new Set(client.allowedOrigins.map((item) => String(item).trim()).filter(Boolean))]
+    : [...new Set(derivedOrigins)];
+  const allowedScopes = Array.isArray(client.allowedScopes)
+    ? [...new Set(client.allowedScopes.map((scope) => String(scope).trim()).filter(Boolean))]
+    : ['openid', 'profile', 'email'];
+  const defaultScopes = Array.isArray(client.defaultScopes)
+    ? [...new Set(client.defaultScopes.map((scope) => String(scope).trim()).filter((scope) => allowedScopes.includes(scope)))]
+    : [];
+  const clientType = client.clientType === 'confidential' ? 'confidential' : 'public';
+
+  return {
+    clientId: String(client.clientId || '').trim(),
+    clientName: String(client.clientName || '').trim(),
+    description: String(client.description || '').trim(),
+    clientType,
+    clientSecret: clientType === 'confidential' ? String(client.clientSecret || '').trim() : '',
+    redirectUris,
+    allowedOrigins,
+    applicationUrl: String(client.applicationUrl || allowedOrigins[0] || '').trim(),
+    defaultScopes: defaultScopes.length ? defaultScopes : ['openid'],
+    allowedScopes: allowedScopes.length ? allowedScopes : ['openid'],
+    logoText: String(client.logoText || 'NA').trim().slice(0, 3).toUpperCase(),
+    status: client.status === 'disabled' ? 'disabled' : 'active',
+    ownerUserId: client.ownerUserId ? String(client.ownerUserId) : null,
+    createdAt: client.createdAt || new Date().toISOString(),
+    updatedAt: client.updatedAt || client.createdAt || new Date().toISOString(),
+  };
+}
+
 function ensureClientsFile() {
   if (!fs.existsSync(CONFIG_DIR)) {
     fs.mkdirSync(CONFIG_DIR, { recursive: true });
   }
 
   if (!fs.existsSync(CLIENTS_FILE)) {
-    const starterClients = [
-      {
-        clientId: 'nova-notes-web',
-        clientName: 'Nova Notes',
-        description: 'A public SPA client using Authorization Code + PKCE.',
-        clientType: 'public',
-        redirectUris: ['http://localhost:4174/auth/callback'],
-        allowedOrigins: ['http://localhost:4174'],
-        applicationUrl: 'http://localhost:4174',
-        defaultScopes: ['openid', 'profile', 'email'],
-        allowedScopes: ['openid', 'profile', 'email'],
-        logoText: 'NN',
-      },
-      {
-        clientId: 'nova-admin-api',
-        clientName: 'Nova Admin',
-        description: 'A confidential backend-enabled app that can introspect and refresh securely.',
-        clientType: 'confidential',
-        clientSecret: 'replace-this-secret-before-production',
-        redirectUris: ['http://localhost:3001/auth/callback'],
-        allowedOrigins: ['http://localhost:3001'],
-        applicationUrl: 'http://localhost:3001',
-        defaultScopes: ['openid', 'profile', 'email', 'apps:read'],
-        allowedScopes: ['openid', 'profile', 'email', 'apps:read'],
-        logoText: 'NA',
-      },
-    ];
-
-    fs.writeFileSync(CLIENTS_FILE, JSON.stringify(starterClients, null, 2));
+    fs.writeFileSync(CLIENTS_FILE, JSON.stringify(createStarterClients(), null, 2));
   }
 }
 
 function readClients() {
   ensureClientsFile();
-  return JSON.parse(fs.readFileSync(CLIENTS_FILE, 'utf8'));
+  return JSON.parse(fs.readFileSync(CLIENTS_FILE, 'utf8')).map(normalizeClient);
+}
+
+function writeClients(clients) {
+  ensureClientsFile();
+  fs.writeFileSync(CLIENTS_FILE, JSON.stringify(clients.map(normalizeClient), null, 2));
 }
 
 function getClientById(clientId) {
   return readClients().find((client) => client.clientId === clientId) || null;
 }
 
-function listPublicClients() {
-  return readClients().map((client) => ({
+function toPublicClient(client) {
+  return {
     clientId: client.clientId,
     clientName: client.clientName,
     description: client.description,
     clientType: client.clientType,
     applicationUrl: client.applicationUrl,
     redirectUris: client.redirectUris,
+    allowedOrigins: client.allowedOrigins,
     allowedScopes: client.allowedScopes,
+    defaultScopes: client.defaultScopes,
     logoText: client.logoText,
-  }));
+    status: client.status,
+    ownerUserId: client.ownerUserId,
+    createdAt: client.createdAt,
+    updatedAt: client.updatedAt,
+  };
+}
+
+function listPublicClients() {
+  return readClients().map(toPublicClient);
 }
 
 function ensureKeysFile() {
@@ -148,8 +220,13 @@ module.exports = {
   REFRESH_TOKEN_TTL_MS,
   NOVA_AUTH_SUFFIX,
   SCOPE_DESCRIPTIONS,
+  createClientSecret,
   getClientById,
+  normalizeClient,
   listPublicClients,
+  readClients,
+  toPublicClient,
+  writeClients,
   getSigningKey,
   getJwks,
 };

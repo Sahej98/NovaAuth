@@ -16,6 +16,51 @@ function createEmptyStore() {
   };
 }
 
+function createDefaultUserSettings() {
+  return {
+    themePreference: 'system',
+    compactMode: false,
+    emailUpdates: true,
+    securityAlerts: true,
+    developerDefaultClientType: 'public',
+    developerDefaultScopes: ['openid', 'profile', 'email'],
+    startPage: 'dashboard',
+    profileTagline: '',
+  };
+}
+
+function normalizeUserSettings(settings) {
+  const nextSettings = {
+    ...createDefaultUserSettings(),
+    ...(settings || {}),
+  };
+  const themePreference = ['system', 'light', 'dark'].includes(nextSettings.themePreference)
+    ? nextSettings.themePreference
+    : 'system';
+  const developerDefaultClientType =
+    nextSettings.developerDefaultClientType === 'confidential' ? 'confidential' : 'public';
+  const startPage = ['dashboard', 'apps', 'settings', 'docs'].includes(nextSettings.startPage)
+    ? nextSettings.startPage
+    : 'dashboard';
+  const developerDefaultScopes = Array.isArray(nextSettings.developerDefaultScopes)
+    ? [...new Set(nextSettings.developerDefaultScopes.map((scope) => String(scope).trim()).filter(Boolean))]
+    : createDefaultUserSettings().developerDefaultScopes;
+
+  return {
+    ...nextSettings,
+    themePreference,
+    compactMode: Boolean(nextSettings.compactMode),
+    emailUpdates: Boolean(nextSettings.emailUpdates),
+    securityAlerts: Boolean(nextSettings.securityAlerts),
+    developerDefaultClientType,
+    developerDefaultScopes: developerDefaultScopes.length
+      ? developerDefaultScopes
+      : createDefaultUserSettings().developerDefaultScopes,
+    startPage,
+    profileTagline: String(nextSettings.profileTagline || '').trim().slice(0, 120),
+  };
+}
+
 function ensureStoreFile() {
   if (!fs.existsSync(DATA_DIR)) {
     fs.mkdirSync(DATA_DIR, { recursive: true });
@@ -41,6 +86,7 @@ function normalizeStoreShape(store) {
   nextStore.users = nextStore.users.map((user) => ({
     ...user,
     novaEmail: user.novaEmail || createNovaEmail(user.handle),
+    settings: normalizeUserSettings(user.settings),
   }));
 
   return nextStore;
@@ -59,6 +105,8 @@ function writeStore(store) {
 
 module.exports = {
   createEmptyStore,
+  createDefaultUserSettings,
+  normalizeUserSettings,
   readStore,
   writeStore,
 };
